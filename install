@@ -1,0 +1,24 @@
+#!/bin/bash
+
+source ./modules/ask.sh
+source ./modules/download.sh
+
+### COMMENTED INSTRUCTIONS WILL BE UNCOMMENTED LATER ON.
+
+### Install script for my Arch system.
+
+# timedatectl set-ntp true
+
+### Choose where to install /boot, root and swap
+ask "What kinda partitioning config do you opt for?" "Option 1" "Option 2" "Option 3"
+# echo -----------
+# lsblk -d -o NAME,SIZE
+# echo -----------
+
+
+echo "Main script: Answer is $?"
+echo $r
+
+### Choose where to install /home
+# lsblk -d -o NAME,SIZE
+

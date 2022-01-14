@@ -1,0 +1,18 @@
+#!/bin/bash
+
+export DISPLAY=:0
+
+VM="$1"
+ACTION="$2"
+STATE="$3"
+BASEDIR="$(dirname $0)"
+
+# Execute scripts found in ACTION/STATE folder, matching VM
+
+if [[ -d "$BASEDIR/$ACTION/$STATE" ]]; then
+    if [[ -f "$BASEDIR/$ACTION/$STATE/$VM.sh" ]]; then
+        source "$BASEDIR/$ACTION/$STATE/$VM.sh"
+    fi
+else
+    mkdir -p "$BASEDIR/$ACTION/$STATE"
+fi
