@@ -13,14 +13,14 @@ clear
 # timedatectl set-ntp true
 
 ### Choose where to install /boot, root and swap
-notecommands+=('lsblk -dp -o NAME,SIZE | column -t' 'lsblk -p -o NAME,SIZE,PARTUUID | column -t')
+noteadd "lsblk -dp -o NAME,SIZE | column -t"
+noteadd "lsblk -p -o NAME,SIZE,PARTUUID | column -t"
 
 echo "Welcome to the install script!"
 
-echo "On your right, a funny thing should tell you
-everything you need to know about your hard drives."
+echo "On your right, there should be a note with the disks info."
 
-drawnote
+notedraw
 
 askopt "What kinda partitioning config do you want?"\
     "just root, on one disk"\
@@ -30,9 +30,8 @@ askopt "What kinda partitioning config do you want?"\
 
 echo "Main script: Answer is $?"
 
-notecommands=("${notecommands[@]:1}")
-
-drawnote
+noterbot
+notedraw
 
 askyn "Do you want swap?"
 

@@ -1,6 +1,15 @@
 notecommands=()
 
-function drawnote() {
+function noteadd() {
+    notecommands+=("$1")
+}
+
+# rbot = remove bottom
+function noterbot() {
+    notecommands=("${notecommands[@]:1}")
+}
+
+function notedraw() {
     # Put all the outputs in a string, separated by "---" .
     local bulkstr=$(eval ${notecommands[0]})
 
