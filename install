@@ -2,23 +2,41 @@
 
 source ./modules/ask.sh
 source ./modules/download.sh
+source ./modules/note.sh
 
 ### COMMENTED INSTRUCTIONS WILL BE UNCOMMENTED LATER ON.
+
+clear
 
 ### Install script for my Arch system.
 
 # timedatectl set-ntp true
 
 ### Choose where to install /boot, root and swap
-ask "What kinda partitioning config do you opt for?" "Option 1" "Option 2" "Option 3"
-# echo -----------
-# lsblk -d -o NAME,SIZE
-# echo -----------
+notecommands+=('lsblk -dp -o NAME,SIZE | column -t' 'lsblk -p -o NAME,SIZE,PARTUUID | column -t')
 
+echo "Welcome to the install script!"
+
+echo "On your right, a funny thing should tell you
+everything you need to know about your hard drives."
+
+drawnote
+
+askopt "What kinda partitioning config do you want?"\
+    "just root, on one disk"\
+    "root and /home on different partitions, still one disk"\
+    "root on one disk, /home on other disk"\
+    "option \"do it yourself fucker\" (will launch you in fdisk)"
 
 echo "Main script: Answer is $?"
-echo $r
+
+notecommands=("${notecommands[@]:1}")
+
+drawnote
+
+askyn "Do you want swap?"
+
+echo "Main script: Answer is $?"
 
 ### Choose where to install /home
 # lsblk -d -o NAME,SIZE
-

@@ -1,6 +1,6 @@
 # Usage: ask TITLE questions...
 
-function ask () {
+function askopt () {
     local title="$1"
     shift
 
@@ -27,6 +27,37 @@ function ask () {
         else
             echo "Answer is not a number."
             loop
+        fi
+    }
+
+    loop
+
+    return $r
+}
+
+function askyn () {
+    local question="$1"
+
+    local r
+
+    function loop () {
+        read -p " --- $question [Y/n] --> " r
+
+        if [[ -z $r ]]; then
+            r=1
+        else
+            local normr=$(echo "$r" | awk '{print tolower($0)}')
+
+            if [[ $normr != "y" ]] && [[ $normr != "n" ]]; then
+                echo "Answer different from \"y\" or \"n\"."
+                loop
+            fi
+
+            if [[ $normr = "y" ]]; then
+                r=1
+            else
+                r=0
+            fi
         fi
     }
 
